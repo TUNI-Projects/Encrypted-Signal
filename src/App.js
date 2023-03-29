@@ -9,9 +9,9 @@ function App() {
       <br></br>
 
       <div className='row'>
-      <div className='col-md-3'></div>
+      <div className='col-md-4'></div>
       
-      <div className='col-md-6'>
+      <div className='col-md-4'>
           <div className='row auth' align="center">
             <div className='col-md-6'>
                 <p>Login</p>
@@ -34,12 +34,12 @@ function App() {
                 <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
               </div>
               <br></br>
-              <button type="submit" className="btn btn-success">Submit</button>
+              <button type="submit" className="btn btn-success btn_submit">Submit</button>
             </form>
             
           </div>
       </div>
-      <div className='col-md-3'></div>
+      <div className='col-md-4'></div>
       </div>
     </div>
   );
