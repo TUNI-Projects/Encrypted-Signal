@@ -66,3 +66,29 @@
 		background-position: 0% 50%;
 	}
 }
+
+
+.navigation {
+  background-color: aliceblue;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 10px;
+}
+
+.dash_main {
+  margin-top: 15px;
+  background-color: aliceblue;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 10px;
+}
+
+.file_ul {
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  border: 1px;
+  border-style: solid;
+  border-color: #9400D1;
+}

@@ -3,6 +3,7 @@ import React from "react";
 import Login from "./component/login";
 import Register from "./component/register";
 import Cookies from "js-cookie";
+import Dashboard from "./component/dashboard";
 
 class App extends React.Component {
   render() {
@@ -41,9 +42,7 @@ class App extends React.Component {
         )}
 
         {username != null && (
-          <div className="container">
-            <h1> Hello user!</h1>
-          </div>
+          <Dashboard />
         )}
       </div>
     );

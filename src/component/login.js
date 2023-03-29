@@ -17,7 +17,7 @@ class Login extends React.Component {
   }
 
   handleLogin(e) {
-    e.preventDefault();
+    // e.preventDefault();
     let email_address = e.target.email_address.value;
     let password = e.target.password.value;
 
@@ -32,7 +32,7 @@ class Login extends React.Component {
       .then(
         (result) => {
           let status = result["status"];
-          let message = result["message"];
+        //   let message = result["message"];
           if (status === 202) {
             //accepted
             let username = result["username"];

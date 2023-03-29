@@ -23,8 +23,8 @@ class Register extends React.Component {
       .then(
         (result) => {
           let status = result["status"];
-          let message = result["message"];
-          if (status == 202) {
+          // let message = result["message"];
+          if (status === 202) {
             //accepted
             let username = result["username"];
             this.setState({
