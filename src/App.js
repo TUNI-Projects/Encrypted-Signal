@@ -10,18 +10,18 @@ class App extends React.Component {
     let username = Cookies.get("username");
 
     return (
-      <div className="App">
-        <br></br>
-        <br></br>
-        <br></br>
-
+      <div className="">
         {username == null && (
-          <div className="container landing">
+          <div className="container landing App">
             <div className="row">
               <div className="col-md-4"></div>
 
               <div className="col-md-4">
                 <div className="row auth" align="center">
+                  <br></br>
+                  <br></br>
+                  <br></br>
+
                   <div className="col-md-6">
                     <p>Login</p>
                     <hr></hr>
@@ -41,9 +41,7 @@ class App extends React.Component {
           </div>
         )}
 
-        {username != null && (
-          <Dashboard />
-        )}
+        {username != null && <Dashboard />}
       </div>
     );
   }

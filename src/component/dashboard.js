@@ -3,6 +3,7 @@ import React from "react";
 import Cookies from "js-cookie";
 import NavBar from "./navigation";
 import ListOfFiles from "./files";
+import FileUpload from "./upload";
 
 class Dashboard extends React.Component {
   render() {
@@ -10,16 +11,20 @@ class Dashboard extends React.Component {
     console.log(username);
 
     return (
-      <div className="container">
-        <NavBar />
-
+      <div className="dashboard container-fluid">
         <div className="container">
-          <div className="row dash_main">
-            <div className="col-md-4">
-              <ListOfFiles />
-            </div>
+          <NavBar />
 
-            <div className="col-md-8"></div>
+          <div className="container">
+            <div className="row dash_main">
+              <div className="col-md-4">
+                <ListOfFiles />
+              </div>
+
+              <div className="col-md-8">
+                <FileUpload />
+              </div>
+            </div>
           </div>
         </div>
       </div>
