@@ -8,9 +8,13 @@ class FileUpload extends React.Component {
         <h4> Upload Files</h4>
         <hr />
 
-        <form action="/file-upload" class="form-control dropzone file_upload_bg" id="dropzone">
+        <form
+          action="/file-upload"
+          class="form-control dropzone file_upload_bg"
+          id="dropzone"
+        >
           <div class="fallback">
-            <input name="file" type="file" multiple />
+            <input name="file" type="file" />
           </div>
         </form>
       </div>
