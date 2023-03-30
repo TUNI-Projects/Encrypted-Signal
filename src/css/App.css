@@ -99,3 +99,15 @@
   border-style: solid;
   border-color: #9400D1;
 }
+
+.file_upload {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.file_upload_bg {
+  min-height: 100px;
+  height: 300px;
+}

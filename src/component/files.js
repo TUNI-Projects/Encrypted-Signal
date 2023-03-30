@@ -5,6 +5,8 @@ class ListOfFiles extends React.Component {
   render() {
     return (
       <div>
+        <h4 style={{margin: 10}}> Uploaded Files</h4>
+        <hr />
         <ul className="file_ul">
           <div className="row">
             <div className="col-md-8">
