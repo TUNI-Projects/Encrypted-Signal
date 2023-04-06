@@ -2,7 +2,7 @@ import "./../css/App.css";
 import React from "react";
 import Cookies from "js-cookie";
 import NavBar from "./navigation";
-import ListOfFiles from "./files";
+import ListOfFiles from "./list_of_files";
 import FileUpload from "./upload";
 
 class Dashboard extends React.Component {

@@ -12,15 +12,17 @@ class App extends React.Component {
     return (
       <div className="">
         {username == null && (
-          <div className="container landing App">
+          <div className="container-fluid landing App">
+            
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <div className="row">
               <div className="col-md-4"></div>
 
               <div className="col-md-4">
                 <div className="row auth" align="center">
-                  <br></br>
-                  <br></br>
-                  <br></br>
 
                   <div className="col-md-6">
                     <p>Login</p>
@@ -38,7 +40,19 @@ class App extends React.Component {
               </div>
               <div className="col-md-4"></div>
             </div>
+
+            <br></br>
+            <div className="row">
+              <div className="col-md-3"></div>
+              <div className="col-md-6">
+                <footer className="footer" align="center">
+                  footer -- add here
+                </footer>
+              </div>
+              <div className="col-md-3"></div>
+            </div>
           </div>
+          
         )}
 
         {username != null && <Dashboard />}

@@ -2,6 +2,7 @@ import "./../css/App.css";
 import React from "react";
 
 class FileUpload extends React.Component {
+ 
   render() {
     return (
       <div className="file_upload">

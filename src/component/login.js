@@ -40,6 +40,7 @@ class Login extends React.Component {
               username: username,
             });
             this.setCookie();
+            window.location.replace('http://localhost:3000/');
           } else {
             // show error message here!
           }

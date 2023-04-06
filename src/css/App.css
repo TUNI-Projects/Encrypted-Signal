@@ -111,3 +111,18 @@
   min-height: 100px;
   height: 300px;
 }
+
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.file_item {
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
