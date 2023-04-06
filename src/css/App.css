@@ -100,6 +100,7 @@
   border: 1px;
   border-style: solid;
   border-color: #9400D1;
+  padding-right: 15px;
 }
 
 .file_upload {
@@ -139,4 +140,41 @@
   position: relative;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.upload_secion {
+  position: relative;
+}
+
+.upload_section_row { 
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 10px;
+}
+
+.total_files {
+  text-align: right;
+  background-color: tomato;
+  padding: 5px;
+  border-radius: 20px;
+  color: whitesmoke;
+}
+
+.test {
+  background-color: #61dafb;
+}
+
+.file_details {
+  background-color:white;
+  width: 100%;
+  border-radius: 15px;
+  margin: 5px;
+  padding-top: 10px;
+}
+
+.right_align {
+  position: absolute;
+  right: -20%;
+  margin-right: 10px;
 }

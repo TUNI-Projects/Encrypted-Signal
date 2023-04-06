@@ -7,6 +7,7 @@ class ListOfFiles extends React.Component {
     super(props);
     this.state = {
       uploadedFiles: [],
+      total: 0,
     };
   }
 
@@ -19,12 +20,8 @@ class ListOfFiles extends React.Component {
             this.setState(
               {
                 uploadedFiles: result["files"],
-              },
-              function () {
-                console.log(this.state.uploadedFiles);
-                console.log(this.state);
-              }
-            );
+                total: result["total"],
+              });
           } else {
             const message = "Invalid Request!";
           }
@@ -44,8 +41,17 @@ class ListOfFiles extends React.Component {
 
   render() {
     return (
-      <div>
-        <h4 style={{ margin: 10 }}> Uploaded Files</h4>
+      <div className="">
+        <div className="row upload_section_row">
+          <div className="col-lg-8">
+            <h4 className="vertical-center"> Your Files</h4>
+          </div>
+
+          <div className="col-lg-4 right_align">
+            <h6 className="vertical-center total_files"> {this.state.total}</h6>
+          </div>
+
+        </div>
         <hr />
         {this.state.uploadedFiles.map((value, index) => {
           return <SingleFileView item={value} key={index}></SingleFileView>;
