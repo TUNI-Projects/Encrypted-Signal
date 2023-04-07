@@ -58,7 +58,8 @@
 .dashboard {
   background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
-	height: 100%;
+	height: 100vh;
+  max-height: 100%;
   padding-bottom: 20px;
   padding-top: 20px;
   background: linear-gradient(-45deg, #6f3aab,#850fb8  );
@@ -124,7 +125,7 @@
 }
 
 .btn_upload {
-  width: 25%;
+  width: 30%;
 }
 
 
@@ -177,4 +178,34 @@
   position: absolute;
   right: -20%;
   margin-right: 10px;
+}
+
+.upload_status {
+  margin-top: 20px;
+}
+
+.progress_bar {
+  height: 20px;
+}
+
+.focus {
+  font-weight: bold;
+  text-shadow: whitesmoke;
+  font-size: large;
+  
+}
+
+.entry:hover {
+  transition-duration: 1s;
+  transition-property: font-size;
+  font-size: 25px;
+}
+
+.entry {
+  transition-duration: 1s;
+  transition-property: font-size;
+}
+
+.hidenseek {
+  visibility: collapse;
 }

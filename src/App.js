@@ -6,6 +6,29 @@ import Cookies from "js-cookie";
 import Dashboard from "./component/dashboard";
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoginActive: true,
+      isSignUpActive: false
+    };
+  }
+
+  handleLoginClick(event) {
+     this.setState({
+      isLoginActive: true,
+      isSignUpActive: false,
+     })
+  }
+
+  handleSignUpClick(event) {
+    this.setState({
+      isSignUpActive: true,
+      isLoginActive: false,
+    })
+  }
+
   render() {
     let username = Cookies.get("username");
 
@@ -24,18 +47,19 @@ class App extends React.Component {
               <div className="col-md-4">
                 <div className="row auth" align="center">
 
-                  <div className="col-md-6">
-                    <p>Login</p>
+                  <div className="col-md-6" onClick={this.handleLoginClick.bind(this)}>
+                    <p className={this.state.isLoginActive ? 'focus entry': 'entry'}>Login</p>
                     <hr></hr>
                   </div>
 
-                  <div className="col-md-6">
-                    <p>Sign up</p>
+                  <div className="col-md-6" onClick={this.handleSignUpClick.bind(this)}>
+                    <p className={this.state.isSignUpActive ? 'focus entry': 'entry'}>Sign up</p>
                     <hr></hr>
                   </div>
 
-                  <Login />
-                  <Register />
+                  {this.state.isLoginActive && (<Login/>)}
+                  {this.state.isSignUpActive && (<Register/>)}
+                  {/* <Register /> */}
                 </div>
               </div>
               <div className="col-md-4"></div>
@@ -46,7 +70,7 @@ class App extends React.Component {
               <div className="col-md-3"></div>
               <div className="col-md-6">
                 <footer className="footer" align="center">
-                  footer -- add here
+                  
                 </footer>
               </div>
               <div className="col-md-3"></div>
