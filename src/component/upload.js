@@ -19,6 +19,9 @@ class FileUpload extends React.Component {
     this.setState({
       file: event.target.files[0],
       isFileSelected: true,
+      progress: 0,
+      success_message: null,
+      error_message: null,
     });
   }
 
@@ -27,13 +30,19 @@ class FileUpload extends React.Component {
 
     if (this.state.file == null) {
       this.setState({
-        error_message: "You have to select a file to encrypt and upload!"
-      })
+        error_message: "You have to select a file to encrypt and upload!",
+      });
       return;
     }
+    let shared_email = e.target.share_email_address.value;
+    console.log(shared_email);
 
     const formData = new FormData();
     formData.append("file", this.state.file);
+
+    if (shared_email !== null) {
+      formData.append("shared_email", shared_email);
+    }
 
     axios
       .post("http://localhost:8000/share/upload/cde7f0fb/", formData, {
@@ -89,6 +98,21 @@ class FileUpload extends React.Component {
                   type="file"
                   onChange={this.changeHandler.bind(this)}
                 />
+                
+                {this.state.file && (
+                <div className="form-group upload_share_email">
+                  <input
+                    type="email"
+                    name="share_email_address"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Email"
+                  />
+                  <small id="emailHelp" className="form-text text-muted">
+                    Optional: Add email of someone you want to share this file with.
+                  </small>
+                </div>)}
                 <button className="btn btn-primary btn_upload" type="submit">
                   Upload
                 </button>
@@ -103,14 +127,20 @@ class FileUpload extends React.Component {
                 />
                 {/* success message here */}
                 {this.state.success_message && (
-                  <Alert className="alert alert-success alert-space h6" align="center">
+                  <Alert
+                    className="alert alert-success alert-space h6"
+                    align="center"
+                  >
                     {this.state.success_message}
                   </Alert>
                 )}
 
                 {/* error message here */}
                 {this.state.error_message && (
-                  <Alert className="alert alert-danger alert-space h6" align="center">
+                  <Alert
+                    className="alert alert-danger alert-space h6"
+                    align="center"
+                  >
                     {this.state.error_message}
                   </Alert>
                 )}
