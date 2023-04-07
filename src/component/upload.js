@@ -75,7 +75,7 @@ class FileUpload extends React.Component {
   render() {
     return (
       <div className="file_upload">
-        <div className="row test">
+        <div className="row">
           <h4> Encrypt & Upload a File</h4>
         </div>
         <hr />
