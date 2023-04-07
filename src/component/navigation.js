@@ -1,7 +1,16 @@
 import "./../css/App.css";
 import React from "react";
+import Cookies from "js-cookie";
 
 class NavBar extends React.Component {
+
+
+  logout(event) {
+    event.preventDefault();
+    Cookies.remove('username', {path: '/'});
+    window.location.replace('http://localhost:3000/');
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navigation">
@@ -27,7 +36,7 @@ class NavBar extends React.Component {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" onClick={this.logout.bind(this)}>
                 Logout
               </a>
             </li>

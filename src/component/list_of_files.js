@@ -11,7 +11,7 @@ class ListOfFiles extends React.Component {
     };
   }
 
-  getUploadedFiles() {
+  getUploadedFiles(event) {
     fetch("http://localhost:8000/share/uploaded_files/cde7f0fb/")
       .then((res) => res.json())
       .then(
