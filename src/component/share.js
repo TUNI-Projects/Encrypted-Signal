@@ -7,19 +7,25 @@ class ShareOption extends React.Component {
     this.state = {
       success_msg: null,
       failure_msg: null,
+      shared_email: "",
     };
+  }
+
+  handleOnChange(event) {
+    this.setState({
+        shared_email: event.target.value
+    })
   }
 
   handleShareSubmit(event) {
     event.preventDefault();
-    let shared_email = event.target.share_email_address.value;
     let status = null;
 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        share_email: shared_email,
+        share_email: this.state.shared_email,
         file_id: this.props.file_id,
       }),
     };
@@ -35,11 +41,13 @@ class ShareOption extends React.Component {
             // success
             this.setState({
               success_msg: result["message"],
+              shared_email: "",
             });
           } else {
             // failure
             this.setState({
               failure_msg: result["message"],
+              shared_email: "",
             });
           }
         },
@@ -49,6 +57,7 @@ class ShareOption extends React.Component {
         (error) => {
           this.setState({
             failure_msg: error,
+            shared_email: "",
           });
         }
       );
@@ -70,6 +79,8 @@ class ShareOption extends React.Component {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter Email"
+              value={this.state.shared_email}
+              onChange={this.handleOnChange.bind(this)}
             />
           </div>
           <div className="col-auto">
