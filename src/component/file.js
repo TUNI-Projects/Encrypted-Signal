@@ -6,25 +6,37 @@ class SingleFileView extends React.Component {
     this.state = {
       file_id: this.props.item["file_id"],
       filename: this.props.item["original_filename"],
+      share_options: false,
     };
+  }
+
+  handleShareClick(event) {
+    event.preventDefault();
+    let temp = !this.state.share_options;
+    console.log(temp, this.state.share_options);
+    this.setState({
+      share_options: temp
+    })
   }
 
   handleDownload(event) {
     const download_url =
       "http://127.0.0.1:8000/share/download/cde7f0fb/" + this.state.file_id;
 
-      fetch(download_url).then((response) => {
+    fetch(download_url)
+      .then((response) => {
         if (!response.ok) {
           // console.log(response.body);
           throw new Error(response.statusText);
         } else {
-          return response.blob()
+          return response.blob();
         }
-      }).then((blob) => {
+      })
+      .then((blob) => {
         if (blob["type"] === "application/json") {
           //do something here
-          console.log("error occurred!")
-          return
+          console.log("error occurred!");
+          return;
         }
         let url = window.URL.createObjectURL(blob);
         let a = document.createElement("a");
@@ -32,42 +44,90 @@ class SingleFileView extends React.Component {
         a.href = url;
         a.download = this.state.filename;
         a.click();
-      }).catch((error) => {
-        console.log('error: ' + error);
+      })
+      .catch((error) => {
+        console.log("error: " + error);
       });
   }
 
   render() {
     const item = this.props.item;
-    const uploaded_at = item["uploaded_at"];
+    const uploaded_at = new Date(item["uploaded_at"]).toLocaleString("en-GB");
 
     return (
       <ul className="file_ul">
-        <div className="row file_item">
-          <div className="col-md-8">
-            <p align="left" className="h6">
+        <div className="row">
+          <div className="row" style={{ paddingTop: "5px" }}>
+            <p className="h5" style={{ wordWrap: "break-word" }}>
               {this.state.filename}
             </p>
-            <small align="left">Uploaded at: {uploaded_at}</small>
+            <span className="row">
+              <p
+                className="h6"
+                style={{ width: "fit-content", paddingBottom: "5px" }}
+              >
+                {" "}
+                Uploaded At:{" "}
+              </p>{" "}
+              <small className="" style={{ width: "fit-content" }}>
+                {" "}
+                {uploaded_at}{" "}
+              </small>
+            </span>
+            <span className="row">
+              <p className="h6" style={{ width: "fit-content" }}>
+                {" "}
+                Uploaded By:{" "}
+              </p>
+              <small style={{ width: "fit-content" }}>Add email here</small>
+            </span>
           </div>
-          <div className="col-md-4">
-            <div className="row" align="center">
-              <div className="col-sm-4">
-                <i
-                  className="gg-software-download vertical-center"
-                  onClick={this.handleDownload.bind(this)}
-                ></i>
-              </div>
 
-              <div className="col-sm-4">
-                {/* <button className="btn btn-primary vertical-center" type="submit" download={filename}> Download</button> */}
-                <i className="gg-remove vertical-center"></i>
-              </div>
-
-              <div className="col-sm-4">
-                <i className="gg-share vertical-center"></i>
-              </div>
+          <div
+            className="row"
+            style={{ paddingBottom: "5px", paddingTop: "5px" }}
+          >
+            {/* file download, share and delete options */}
+            <div className="col-md-4 img_center">
+              {/* download */}
+              <i
+                className="gg-software-download"
+                onClick={this.handleDownload.bind(this)}
+                style={{}}
+              ></i>
             </div>
+
+            <div className="col-md-4 img_center">
+              {/* share */}
+              <i className="gg-share" onClick={this.handleShareClick.bind(this)}></i>
+            </div>
+
+            <div className="col-md-4 img_center">
+              {/* delete */}
+              <i className="gg-remove"></i>
+            </div>
+          </div>
+
+          {/* share email options, default visibility None, */}
+
+          <div className={this.state.share_options ? "row share_box": "row display_none"} style={{ paddingBottom: "5px", paddingTop: "5px" }}>
+            <form className="form-row align-items-center">
+              <div className="col-auto">
+                <input
+                  type="email"
+                  name="share_email_address"
+                  className="form-control mb-2"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter Email"
+                />
+              </div>
+              <div className="col-auto">
+                <button className="btn btn-primary btn_upload" style={{maxWidth: "100vw"}} type="submit">
+                  Upload
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </ul>

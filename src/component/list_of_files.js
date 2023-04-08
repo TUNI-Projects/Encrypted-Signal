@@ -41,6 +41,7 @@ class ListOfFiles extends React.Component {
   render() {
     return (
       <div className="">
+        {/* header section */}
         <div className="row upload_section_row">
           <div className="col-lg-8">
             <h4 className="vertical-center"> Your Files</h4>
@@ -51,6 +52,7 @@ class ListOfFiles extends React.Component {
           </div>
         </div>
         <hr />
+        {/* list of files - scroll area */}
         <div className="list_of_files overflow-auto">
           {this.state.uploadedFiles.map((value, index) => {
             return <SingleFileView item={value} key={index}></SingleFileView>;
