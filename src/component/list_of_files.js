@@ -17,11 +17,10 @@ class ListOfFiles extends React.Component {
       .then(
         (result) => {
           if (result.hasOwnProperty("files")) {
-            this.setState(
-              {
-                uploadedFiles: result["files"],
-                total: result["total"],
-              });
+            this.setState({
+              uploadedFiles: result["files"],
+              total: result["total"],
+            });
           } else {
             const message = "Invalid Request!";
           }
@@ -50,12 +49,13 @@ class ListOfFiles extends React.Component {
           <div className="col-lg-4 right_align">
             <h6 className="vertical-center total_files"> {this.state.total}</h6>
           </div>
-
         </div>
         <hr />
-        {this.state.uploadedFiles.map((value, index) => {
-          return <SingleFileView item={value} key={index}></SingleFileView>;
-        })}
+        <div className="list_of_files overflow-auto">
+          {this.state.uploadedFiles.map((value, index) => {
+            return <SingleFileView item={value} key={index}></SingleFileView>;
+          })}
+        </div>
       </div>
     );
   }

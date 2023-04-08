@@ -16,6 +16,7 @@ class FileUpload extends React.Component {
   }
 
   changeHandler(event) {
+    // change the state if a file is added on the input field.
     this.setState({
       file: event.target.files[0],
       isFileSelected: true,
@@ -26,6 +27,7 @@ class FileUpload extends React.Component {
   }
 
   handleUploadClick(e) {
+    // handle the upload option.
     e.preventDefault();
 
     if (this.state.file == null) {
@@ -35,12 +37,10 @@ class FileUpload extends React.Component {
       return;
     }
     let shared_email = e.target.share_email_address.value;
-    console.log(shared_email);
-
     const formData = new FormData();
     formData.append("file", this.state.file);
 
-    if (shared_email !== null) {
+    if (shared_email !== "") {
       formData.append("shared_email", shared_email);
     }
 
@@ -79,6 +79,7 @@ class FileUpload extends React.Component {
           });
         }
       );
+      // e.target.files = null;
   }
 
   render() {
@@ -110,7 +111,7 @@ class FileUpload extends React.Component {
                     placeholder="Enter Email"
                   />
                   <small id="emailHelp" className="form-text text-muted">
-                    Optional: Add email of someone you want to share this file with.
+                    Optional: Share this file with someone!
                   </small>
                 </div>)}
                 <button className="btn btn-primary btn_upload" type="submit">

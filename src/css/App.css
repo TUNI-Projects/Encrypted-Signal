@@ -120,7 +120,7 @@
 
 .center_middle {
   position: absolute;
-  top: 50%;
+  top: 30%;
   right: 25%;
   left: 25%;
 }
@@ -244,4 +244,10 @@
   margin-top: 15px;
   margin-bottom: 15px;
   animation: fadeInFromNone 3s ease-out;
+}
+
+.list_of_files {
+  max-height: 100vh;
+  padding-right: 20px;
+  padding-bottom: 10px;
 }
