@@ -259,10 +259,10 @@
 
 .share_box {
   display: block;
-  animation: fadeInFromNone 1s ease-out;
+  animation: fadeInFromNone 2s ease-out;
 }
 
 .display_none {
   display: none;
-  animation: fadeInFromNone 1s ease-out;
+  animation: fadeInFromNone 2s ease-out;
 }

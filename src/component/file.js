@@ -1,4 +1,5 @@
 import React from "react";
+import ShareOption from "./share";
 
 class SingleFileView extends React.Component {
   constructor(props) {
@@ -111,23 +112,7 @@ class SingleFileView extends React.Component {
           {/* share email options, default visibility None, */}
 
           <div className={this.state.share_options ? "row share_box": "row display_none"} style={{ paddingBottom: "5px", paddingTop: "5px" }}>
-            <form className="form-row align-items-center">
-              <div className="col-auto">
-                <input
-                  type="email"
-                  name="share_email_address"
-                  className="form-control mb-2"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Email"
-                />
-              </div>
-              <div className="col-auto">
-                <button className="btn btn-primary btn_upload" style={{maxWidth: "100vw"}} type="submit">
-                  Upload
-                </button>
-              </div>
-            </form>
+            <ShareOption file_id={this.state.file_id} />
           </div>
         </div>
       </ul>
