@@ -12,15 +12,16 @@ class SingleFileView extends React.Component {
   }
 
   handleShareClick(event) {
+    // change the state of share input options.
     event.preventDefault();
     let temp = !this.state.share_options;
-    console.log(temp, this.state.share_options);
     this.setState({
       share_options: temp
     })
   }
 
   handleDownload(event) {
+    // download files from the server.
     const download_url =
       "http://127.0.0.1:8000/share/download/cde7f0fb/" + this.state.file_id;
 
