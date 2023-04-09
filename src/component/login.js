@@ -9,6 +9,7 @@ class Login extends React.Component {
       username: null,
       error_message: null,
       success_message: null,
+      base_url: process.env.REACT_APP_API_SERVER,
     };
   }
 
@@ -24,6 +25,7 @@ class Login extends React.Component {
     e.preventDefault();
     let email_address = e.target.email_address.value;
     let password = e.target.password.value;
+    const login_url = this.state.base_url + "/user/login/";
 
     const requestOptions = {
       method: "POST",
@@ -31,7 +33,9 @@ class Login extends React.Component {
       body: JSON.stringify({ email: email_address, password: password }),
     };
 
-    fetch("http://localhost:8000/user/login/", requestOptions)
+    console.log(login_url);
+
+    fetch(login_url, requestOptions)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -46,7 +50,7 @@ class Login extends React.Component {
               success_message: result["message"],
             });
             this.setCookie();
-            window.location.replace("http://localhost:3000/");
+            window.location.replace(process.env.REACT_APP_HOMEPAGE);
           } else {
             // show error message here!
             this.setState({
@@ -69,7 +73,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(process.env.REACT_APP_SERVER, "server?");
     return (
       <div className="">
         <div className="row">
@@ -83,6 +86,7 @@ class Login extends React.Component {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
+                required
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -96,6 +100,7 @@ class Login extends React.Component {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
+                required
               />
             </div>
             <br></br>
