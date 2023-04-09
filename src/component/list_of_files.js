@@ -8,11 +8,15 @@ class ListOfFiles extends React.Component {
     this.state = {
       uploadedFiles: [],
       total: 0,
+      base_url: process.env.REACT_APP_API_SERVER,
     };
   }
 
   getUploadedFiles(event) {
-    fetch("http://localhost:8000/share/uploaded_files/cde7f0fb/")
+    const username = "cde7f0fb";
+    const upload_url = this.state.base_url + "/share/uploaded_files/" + username;
+    
+    fetch(upload_url)
       .then((res) => res.json())
       .then(
         (result) => {
