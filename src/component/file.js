@@ -1,5 +1,7 @@
 import React from "react";
 import ShareOption from "./share";
+import { Alert } from "react-bootstrap";
+import { useEffect } from "react";
 
 class SingleFileView extends React.Component {
   constructor(props) {
@@ -8,6 +10,9 @@ class SingleFileView extends React.Component {
       file_id: this.props.item["file_id"],
       filename: this.props.item["original_filename"],
       share_options: false,
+      message: null,
+      success: false,
+      base_url: process.env.REACT_APP_API_SERVER
     };
   }
 
@@ -16,19 +21,68 @@ class SingleFileView extends React.Component {
     event.preventDefault();
     let temp = !this.state.share_options;
     this.setState({
-      share_options: temp
-    })
+      share_options: temp,
+    });
+  }
+
+  handleRemove(event) {
+    event.preventDefault();
+    const remove_url = this.state.base_url + "/share/delete_file/cde7f0fb/";
+    console.log(remove_url);
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        file_id: this.state.file_id,
+      }),
+    };
+
+    let status = null;
+    fetch(remove_url, requestOptions)
+      .then((res) => {
+        status = res.status;
+        return res.json();
+      })
+      .then(
+        (result) => {
+          if (status === 202) {
+            // success
+            this.setState({
+              message: result["message"],
+              success: true,
+            });
+          } else {
+            // failure
+            this.setState({
+              message: result["message"],
+              success: false,
+            });
+          }
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            failure_msg: error,
+            success: false,
+          });
+        }
+      );
+      window.location.reload();
   }
 
   handleDownload(event) {
     // download files from the server.
     const download_url =
-      "http://127.0.0.1:8000/share/download/cde7f0fb/" + this.state.file_id;
+      this.state.base_url + "/share/download/cde7f0fb/" + this.state.file_id;
 
     fetch(download_url)
       .then((response) => {
-        if (!response.ok) {
+        console.log(response.status);
+        if (response.status !== 200) {
           // console.log(response.body);
+          // console.log(response.json());
           throw new Error(response.statusText);
         } else {
           return response.blob();
@@ -37,8 +91,7 @@ class SingleFileView extends React.Component {
       .then((blob) => {
         if (blob["type"] === "application/json") {
           //do something here
-          console.log("error occurred!");
-          return;
+          throw new Error("File not found!");
         }
         let url = window.URL.createObjectURL(blob);
         let a = document.createElement("a");
@@ -48,7 +101,11 @@ class SingleFileView extends React.Component {
         a.click();
       })
       .catch((error) => {
-        console.log("error: " + error);
+        console.log(error);
+        this.setState({
+          "success": false,
+          message: "File not found",
+        })
       });
   }
 
@@ -101,20 +158,41 @@ class SingleFileView extends React.Component {
 
             <div className="col-md-4 img_center">
               {/* share */}
-              <i className="gg-share" onClick={this.handleShareClick.bind(this)}></i>
+              <i
+                className="gg-share"
+                onClick={this.handleShareClick.bind(this)}
+              ></i>
             </div>
 
             <div className="col-md-4 img_center">
               {/* delete */}
-              <i className="gg-remove"></i>
+              <i className="gg-remove"
+              onClick={this.handleRemove.bind(this)}
+              ></i>
             </div>
           </div>
 
           {/* share email options, default visibility None, */}
 
-          <div className={this.state.share_options ? "row share_box": "row display_none"} style={{ paddingBottom: "5px", paddingTop: "5px" }}>
+          <div
+            className={
+              this.state.share_options ? "row share_box" : "row display_none"
+            }
+            style={{ paddingBottom: "5px", paddingTop: "5px" }}
+          >
             <ShareOption file_id={this.state.file_id} />
           </div>
+
+          {this.state.message && (
+            <div className="row">
+              <Alert
+                className={this.state.success ? "alert alert-success alert-space h6": "alert alert-danger alert-space h6"}
+                align="center"
+              >
+                {this.state.message}
+              </Alert>
+            </div>
+          )}
         </div>
       </ul>
     );

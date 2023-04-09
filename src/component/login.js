@@ -1,6 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { Alert } from "react-bootstrap";
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -68,6 +69,7 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log(process.env.REACT_APP_SERVER, "server?");
     return (
       <div className="">
         <div className="row">
