@@ -1,7 +1,8 @@
 import React from "react";
 import ShareOption from "./share";
 import { Alert } from "react-bootstrap";
-import { useEffect } from "react";
+import CryptoJS from "crypto-js";
+import { saveAs } from "file-saver";
 
 class SingleFileView extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class SingleFileView extends React.Component {
       share_options: false,
       message: null,
       success: false,
-      base_url: process.env.REACT_APP_API_SERVER
+      base_url: process.env.REACT_APP_API_SERVER,
     };
   }
 
@@ -69,7 +70,7 @@ class SingleFileView extends React.Component {
           });
         }
       );
-      window.location.reload();
+    window.location.reload();
   }
 
   handleDownload(event) {
@@ -103,9 +104,47 @@ class SingleFileView extends React.Component {
       .catch((error) => {
         console.log(error);
         this.setState({
-          "success": false,
+          success: false,
           message: "File not found",
-        })
+        });
+      });
+  }
+
+  handleDownloadV2(event) {
+    // download files from the server.
+    const download_url =
+      this.state.base_url + "/share/download/v2/cde7f0fb/" + this.state.file_id;
+
+    fetch(download_url)
+      .then((res) => {
+        return Promise.all([res.json(), res.status]);
+      })
+      .then(([response, status]) => {
+        console.log(status);
+        const filename = response.filename;
+        console.log(filename);
+
+        if (status === 200) {
+          const content = atob(response.content);
+          const fileType = response.file_type;
+          
+          const decryptedContents = CryptoJS.AES.decrypt(
+            content,
+            "super-secret-encryption-key"
+          ).toString(CryptoJS.enc.Utf8);
+          // Create a Blob object from the decrypted file contents
+          const blob = new Blob([decryptedContents], { type: fileType });
+
+          // Save the Blob object as a file using the FileSaver library
+          saveAs(blob, filename);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({
+          success: false,
+          message: "File not found",
+        });
       });
   }
 
@@ -151,7 +190,7 @@ class SingleFileView extends React.Component {
               {/* download */}
               <i
                 className="gg-software-download"
-                onClick={this.handleDownload.bind(this)}
+                onClick={this.handleDownloadV2.bind(this)}
                 style={{}}
               ></i>
             </div>
@@ -166,8 +205,9 @@ class SingleFileView extends React.Component {
 
             <div className="col-md-4 img_center">
               {/* delete */}
-              <i className="gg-remove"
-              onClick={this.handleRemove.bind(this)}
+              <i
+                className="gg-remove"
+                onClick={this.handleRemove.bind(this)}
               ></i>
             </div>
           </div>
@@ -186,7 +226,11 @@ class SingleFileView extends React.Component {
           {this.state.message && (
             <div className="row">
               <Alert
-                className={this.state.success ? "alert alert-success alert-space h6": "alert alert-danger alert-space h6"}
+                className={
+                  this.state.success
+                    ? "alert alert-success alert-space h6"
+                    : "alert alert-danger alert-space h6"
+                }
                 align="center"
               >
                 {this.state.message}

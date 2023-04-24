@@ -55,6 +55,7 @@ class FileUpload extends React.Component {
     // formData.append("file", this.state.file);
     formData.append("encrypted_data", encryptedContents);
     formData.append("filename", this.state.file["name"]);
+    formData.append("file_type", this.state.file["type"]);
 
     if (shared_email !== "") {
       formData.append("shared_email", shared_email);
