@@ -31,6 +31,7 @@ class ShareOption extends React.Component {
         share_email: this.state.shared_email,
         file_id: this.props.file_id,
       }),
+      credentials: "same-origin",
     };
 
     fetch(share_url, requestOptions)

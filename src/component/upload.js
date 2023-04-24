@@ -2,6 +2,7 @@ import "./../css/App.css";
 import React from "react";
 import axios from "axios";
 import { Alert, ProgressBar } from "react-bootstrap";
+import CryptoJS from "crypto-js";
 
 class FileUpload extends React.Component {
   constructor(props) {
@@ -40,12 +41,25 @@ class FileUpload extends React.Component {
       return;
     }
     let shared_email = e.target.share_email_address.value;
+
+    // file ENCRYPT
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      const fileContents = fileReader.result;
+      const encryptedContents = CryptoJS.AES.encrypt(
+        fileContents,
+        "super-secret-encryption-key",
+      ).toString();
+
     const formData = new FormData();
-    formData.append("file", this.state.file);
+    // formData.append("file", this.state.file);
+    formData.append("encrypted_data", encryptedContents);
+    formData.append("filename", this.state.file["name"]);
 
     if (shared_email !== "") {
       formData.append("shared_email", shared_email);
     }
+    console.log(formData);
 
     axios
       .post(upload_url, formData, {
@@ -82,7 +96,10 @@ class FileUpload extends React.Component {
           });
         }
       );
-      // e.target.files = null;
+    };
+    
+    fileReader.readAsText(this.state.file);
+    // e.target.files = null;
   }
 
   render() {
@@ -102,21 +119,22 @@ class FileUpload extends React.Component {
                   type="file"
                   onChange={this.changeHandler.bind(this)}
                 />
-                
+
                 {this.state.file && (
-                <div className="form-group upload_share_email">
-                  <input
-                    type="email"
-                    name="share_email_address"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Email"
-                  />
-                  <small id="emailHelp" className="form-text text-muted">
-                    Optional: Share this file with someone!
-                  </small>
-                </div>)}
+                  <div className="form-group upload_share_email">
+                    <input
+                      type="email"
+                      name="share_email_address"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter Email"
+                    />
+                    <small id="emailHelp" className="form-text text-muted">
+                      Optional: Share this file with someone!
+                    </small>
+                  </div>
+                )}
                 <button className="btn btn-primary btn_upload" type="submit">
                   Upload
                 </button>

@@ -29,19 +29,27 @@ class Login extends React.Component {
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ email: email_address, password: password }),
     };
 
-    console.log(login_url);
-
+    let status = null;
     fetch(login_url, requestOptions)
-      .then((res) => res.json())
+      .then((res) => {
+        status = res.status;
+        // let values = res.headers.values();
+        console.log(res.headers.get('set-cookie'));
+        console.log(res.cookie);
+        console.log(res.headers);
+        console.log(res.headers.get('set-cookie'));
+
+        return res.json();
+      })
       .then(
         (result) => {
           console.log(result);
-          let status = result["status"];
-          //   let message = result["message"];
           if (status === 202) {
             //accepted
             let username = result["username"];
