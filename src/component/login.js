@@ -58,7 +58,7 @@ class Login extends React.Component {
               success_message: result["message"],
             });
             this.setCookie();
-            window.location.replace(process.env.REACT_APP_HOMEPAGE);
+            window.location.reload();
           } else {
             // show error message here!
             this.setState({

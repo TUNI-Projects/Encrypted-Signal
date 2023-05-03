@@ -8,7 +8,7 @@ class NavBar extends React.Component {
   logout(event) {
     event.preventDefault();
     Cookies.remove('username', {path: '/'});
-    window.location.replace(process.env.REACT_APP_HOMEPAGE);
+    window.location.reload();
   }
 
   render() {

@@ -39,7 +39,7 @@ class Register extends React.Component {
               success: true,
               message: result["message"],
             })
-            window.location.replace(process.env.REACT_APP_HOMEPAGE);
+            window.location.reload();
           } else {
             // show error message here!
             this.setState({
