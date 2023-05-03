@@ -8,7 +8,8 @@ class ShareOption extends React.Component {
       success_msg: null,
       failure_msg: null,
       shared_email: "",
-      base_url: "https://1234.ibtehaz.xyz",
+      // base_url: "https://1234.ibtehaz.xyz",
+      base_url: "http://127.0.0.1:8000",
     };
   }
 
@@ -21,17 +22,19 @@ class ShareOption extends React.Component {
   handleShareSubmit(event) {
     event.preventDefault();
     let status = null;
-    const username = "cde7f0fb";
-    const share_url = this.state.base_url + "/share/" + username + "/";
+    const share_url = this.state.base_url + "/share/";
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
       body: JSON.stringify({
         share_email: this.state.shared_email,
         file_id: this.props.file_id,
       }),
-      credentials: "same-origin",
     };
 
     fetch(share_url, requestOptions)

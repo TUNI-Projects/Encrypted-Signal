@@ -1,7 +1,6 @@
 import "./../css/App.css";
 import React from "react";
 import SingleFileView from "./file";
-import Cookies from "js-cookie";
 
 class ListOfFiles extends React.Component {
   constructor(props) {
@@ -9,18 +8,14 @@ class ListOfFiles extends React.Component {
     this.state = {
       uploadedFiles: [],
       total: 0,
-      base_url: "https://1234.ibtehaz.xyz",
+      // base_url: "https://1234.ibtehaz.xyz",
+      base_url: "http://127.0.0.1:8000",
     };
   }
 
   getUploadedFiles(event) {
-    const username = "70757d2f";
-    const upload_url =
-      this.state.base_url + "/share/uploaded_files/" + username;
+    const upload_url = this.state.base_url + "/share/uploaded_files/";
 
-    //   "X-CSRFToken": Cookies.get("csrftoken"),
-    // },
-    // credentials: "same-origin",
     const requestOptions = {
       method: "GET",
       credentials: "include",

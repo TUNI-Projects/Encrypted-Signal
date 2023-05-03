@@ -28,11 +28,15 @@ class SingleFileView extends React.Component {
 
   handleRemove(event) {
     event.preventDefault();
-    const remove_url = this.state.base_url + "/share/delete_file/cde7f0fb/";
-    console.log(remove_url);
+    const remove_url = this.state.base_url + "/share/delete_file/";
+
     const requestOptions = {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
       body: JSON.stringify({
         file_id: this.state.file_id,
       }),
@@ -73,47 +77,10 @@ class SingleFileView extends React.Component {
     window.location.reload();
   }
 
-  handleDownload(event) {
-    // download files from the server.
-    const download_url =
-      this.state.base_url + "/share/download/cde7f0fb/" + this.state.file_id;
-
-    fetch(download_url)
-      .then((response) => {
-        console.log(response.status);
-        if (response.status !== 200) {
-          // console.log(response.body);
-          // console.log(response.json());
-          throw new Error(response.statusText);
-        } else {
-          return response.blob();
-        }
-      })
-      .then((blob) => {
-        if (blob["type"] === "application/json") {
-          //do something here
-          throw new Error("File not found!");
-        }
-        let url = window.URL.createObjectURL(blob);
-        let a = document.createElement("a");
-        console.log(url);
-        a.href = url;
-        a.download = this.state.filename;
-        a.click();
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({
-          success: false,
-          message: "File not found",
-        });
-      });
-  }
-
   handleDownloadV2(event) {
     // download files from the server.
     const download_url =
-      this.state.base_url + "/share/download/v2/cde7f0fb/" + this.state.file_id;
+      this.state.base_url + "/share/download/v2/" + this.state.file_id;
 
     fetch(download_url)
       .then((res) => {
@@ -127,10 +94,10 @@ class SingleFileView extends React.Component {
         if (status === 200) {
           const content = atob(response.content);
           const fileType = response.file_type;
-          
+          const key = CryptoJS.enc.Utf8.parse('super-secret-encryption-key');
           const decryptedContents = CryptoJS.AES.decrypt(
             content,
-            "super-secret-encryption-key"
+            key,
           ).toString(CryptoJS.enc.Utf8);
           // Create a Blob object from the decrypted file contents
           const blob = new Blob([decryptedContents], { type: fileType });

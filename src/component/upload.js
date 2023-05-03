@@ -13,7 +13,8 @@ class FileUpload extends React.Component {
       progress: 0,
       success_message: null,
       error_message: null,
-      base_url: "https://1234.ibtehaz.xyz",
+      // base_url: "https://1234.ibtehaz.xyz",
+      base_url: "http://127.0.0.1:8000",
     };
   }
 
@@ -31,8 +32,7 @@ class FileUpload extends React.Component {
   handleUploadClick(e) {
     // handle the upload option.
     e.preventDefault();
-    const username = "cde7f0fb";
-    const upload_url = this.state.base_url + "/share/upload/" + username + "/";
+    const upload_url = this.state.base_url + "/share/upload/";
 
     if (this.state.file == null) {
       this.setState({
@@ -73,6 +73,7 @@ class FileUpload extends React.Component {
             progress: Math.round((100 * data.loaded) / data.total),
           });
         },
+        withCredentials: true, // Include credentials with the request
       })
       .then(
         (result) => {
