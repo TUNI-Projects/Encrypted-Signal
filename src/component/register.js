@@ -6,7 +6,7 @@ class Register extends React.Component {
     super(props);
     this.state = {
       username: null,
-      base_url: process.env.REACT_APP_API_SERVER,
+      base_url: "https://1234.ibtehaz.xyz",
       message: null,
       success: false,
     };

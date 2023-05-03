@@ -13,7 +13,7 @@ class FileUpload extends React.Component {
       progress: 0,
       success_message: null,
       error_message: null,
-      base_url: process.env.REACT_APP_API_SERVER,
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 

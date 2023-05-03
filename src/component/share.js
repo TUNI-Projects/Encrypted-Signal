@@ -8,7 +8,7 @@ class ShareOption extends React.Component {
       success_msg: null,
       failure_msg: null,
       shared_email: "",
-      base_url: process.env.REACT_APP_API_SERVER,
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 

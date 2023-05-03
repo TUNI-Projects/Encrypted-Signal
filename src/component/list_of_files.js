@@ -9,7 +9,7 @@ class ListOfFiles extends React.Component {
     this.state = {
       uploadedFiles: [],
       total: 0,
-      base_url: process.env.REACT_APP_API_SERVER,
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 

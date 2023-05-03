@@ -9,7 +9,7 @@ class Login extends React.Component {
       username: null,
       error_message: null,
       success_message: null,
-      base_url: process.env.REACT_APP_API_SERVER,
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 

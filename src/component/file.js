@@ -13,7 +13,7 @@ class SingleFileView extends React.Component {
       share_options: false,
       message: null,
       success: false,
-      base_url: process.env.REACT_APP_API_SERVER,
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 
