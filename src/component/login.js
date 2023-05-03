@@ -14,7 +14,7 @@ class Login extends React.Component {
   }
 
   setCookie() {
-    Cookies.set("username", this.state.username, {
+    Cookies.set("username_test", this.state.username, {
       path: "/",
       sameSite: "strict",
       maxAge: "10000",

@@ -14,16 +14,21 @@ class ListOfFiles extends React.Component {
   }
 
   getUploadedFiles(event) {
-    const username = "cde7f0fb";
-    const upload_url = this.state.base_url + "/share/uploaded_files/" + username;
-    
-  //   "X-CSRFToken": Cookies.get("csrftoken"),
-  // },
-  // credentials: "same-origin",
-  const requestOptions = {
-    method: "GET",
-    credentials: "same-origin",
-  };
+    const username = "70757d2f";
+    const upload_url =
+      this.state.base_url + "/share/uploaded_files/" + username;
+
+    //   "X-CSRFToken": Cookies.get("csrftoken"),
+    // },
+    // credentials: "same-origin",
+    const requestOptions = {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
 
     fetch(upload_url, requestOptions)
       .then((res) => res.json())
