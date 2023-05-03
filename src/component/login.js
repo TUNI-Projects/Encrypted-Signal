@@ -9,12 +9,13 @@ class Login extends React.Component {
       username: null,
       error_message: null,
       success_message: null,
-      base_url: "https://1234.ibtehaz.xyz",
+      // base_url: "https://1234.ibtehaz.xyz",
+      base_url: " http://127.0.0.1:8000",
     };
   }
 
   setCookie() {
-    Cookies.set("username_test", this.state.username, {
+    Cookies.set("username", this.state.username, {
       path: "/",
       sameSite: "strict",
       maxAge: "10000",
@@ -31,7 +32,9 @@ class Login extends React.Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({ email: email_address, password: password }),
     };
 
@@ -39,12 +42,6 @@ class Login extends React.Component {
     fetch(login_url, requestOptions)
       .then((res) => {
         status = res.status;
-        // let values = res.headers.values();
-        console.log(res.headers.get('set-cookie'));
-        console.log(res.cookie);
-        console.log(res.headers);
-        console.log(res.headers.get('set-cookie'));
-
         return res.json();
       })
       .then(
@@ -58,7 +55,8 @@ class Login extends React.Component {
               success_message: result["message"],
             });
             this.setCookie();
-            window.location.reload();
+            // TODO: -> what to do with this URL? How to set it dynamically?
+            window.location.replace("http://localhost:3000/Encrypted-Signal");
           } else {
             // show error message here!
             this.setState({

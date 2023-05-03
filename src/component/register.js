@@ -21,7 +21,11 @@ class Register extends React.Component {
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
       body: JSON.stringify({ email: email_address, password: password }),
     };
 
