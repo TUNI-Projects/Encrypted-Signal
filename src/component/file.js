@@ -1,8 +1,8 @@
-import React from "react";
-import ShareOption from "./share";
-import { Alert } from "react-bootstrap";
 import CryptoJS from "crypto-js";
 import { saveAs } from "file-saver";
+import React from "react";
+import { Alert } from "react-bootstrap";
+import ShareOption from "./share";
 
 class SingleFileView extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ class SingleFileView extends React.Component {
       share_options: false,
       message: null,
       success: false,
-      base_url: "https://1234.ibtehaz.xyz",
+      // base_url: "https://1234.ibtehaz.xyz",
+      base_url: "http://127.0.0.1:8000",
     };
   }
 
@@ -82,23 +83,28 @@ class SingleFileView extends React.Component {
     const download_url =
       this.state.base_url + "/share/download/v2/" + this.state.file_id;
 
-    fetch(download_url)
+    const requestOptions = {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    fetch(download_url, requestOptions)
       .then((res) => {
         return Promise.all([res.json(), res.status]);
       })
       .then(([response, status]) => {
-        console.log(status);
         const filename = response.filename;
-        console.log(filename);
-
         if (status === 200) {
-          const content = atob(response.content);
+          // const content = atob(response.content);
           const fileType = response.file_type;
-          const key = CryptoJS.enc.Utf8.parse('super-secret-encryption-key');
-          const decryptedContents = CryptoJS.AES.decrypt(
-            content,
-            key,
-          ).toString(CryptoJS.enc.Utf8);
+          const key = "super-secret-encryption-key";
+          const decryptedContents = CryptoJS.AES.decrypt(response.content, key).toString(
+            CryptoJS.enc.Utf8
+          );
           // Create a Blob object from the decrypted file contents
           const blob = new Blob([decryptedContents], { type: fileType });
 
@@ -110,7 +116,7 @@ class SingleFileView extends React.Component {
         console.log(error);
         this.setState({
           success: false,
-          message: "File not found",
+          message: "Error: " + error.message,
         });
       });
   }

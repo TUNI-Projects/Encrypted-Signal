@@ -60,7 +60,7 @@ class FileUpload extends React.Component {
     if (shared_email !== "") {
       formData.append("shared_email", shared_email);
     }
-    console.log(formData);
+    console.log(encryptedContents);
 
     axios
       .post(upload_url, formData, {
