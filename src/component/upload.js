@@ -160,8 +160,8 @@ class FileUpload extends React.Component {
                     </div>
                   </div>
                 )}
-                <button className="btn btn-primary btn_upload" type="submit">
-                  Upload
+                <button className="btn btn-primary btn_upload" style={{width: "100%", marginTop: "10px", marginBottom: "5px"}} type="submit">
+                  Encrypt & Upload
                 </button>
               </form>
 

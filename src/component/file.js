@@ -3,6 +3,7 @@ import { saveAs } from "file-saver";
 import React from "react";
 import { Alert } from "react-bootstrap";
 import ShareOption from "./share";
+import Download from "./download";
 
 class SingleFileView extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class SingleFileView extends React.Component {
       file_id: this.props.item["file_id"],
       filename: this.props.item["original_filename"],
       share_options: false,
+      password_box: false,
       message: null,
       success: false,
       // base_url: "https://1234.ibtehaz.xyz",
@@ -78,48 +80,12 @@ class SingleFileView extends React.Component {
     window.location.reload();
   }
 
-  handleDownloadV2(event) {
-    // download files from the server.
-    const download_url =
-      this.state.base_url + "/share/download/v2/" + this.state.file_id;
-
-    const requestOptions = {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    };
-
-    fetch(download_url, requestOptions)
-      .then((res) => {
-        return Promise.all([res.json(), res.status]);
-      })
-      .then(([response, status]) => {
-        const filename = response.filename;
-        if (status === 200) {
-          const content = atob(response.content);
-          // const content = atob(response.content.split(',')[1]);
-          const fileType = response.file_type;
-          const key = "super-secret-encryption-key";
-          const decryptedContents = CryptoJS.AES.decrypt(content, key).toString(
-            CryptoJS.enc.Utf8
-          );
-          // Create a Blob object from the decrypted file contents
-          const blob = new Blob([decryptedContents], { type: fileType });
-
-          // Save the Blob object as a file using the FileSaver library
-          saveAs(blob, filename);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({
-          success: false,
-          message: "Error: " + error.message,
-        });
-      });
+  showPasswordBox(event) {
+    event.preventDefault();
+    let temp = !this.state.password_box;
+    this.setState({
+      password_box: temp,
+    });
   }
 
   render() {
@@ -146,11 +112,8 @@ class SingleFileView extends React.Component {
                 {uploaded_at}{" "}
               </small>
             </span>
-            <span className="row" style={{paddingBottom: "5px"}}>
-              <p className="h6">
-                {" "}
-                Uploaded By:
-              </p>
+            <span className="row" style={{ paddingBottom: "5px" }}>
+              <p className="h6"> Uploaded By:</p>
               <small>{item.file_owner}</small>
             </span>
           </div>
@@ -164,7 +127,7 @@ class SingleFileView extends React.Component {
               {/* download */}
               <i
                 className="gg-software-download"
-                onClick={this.handleDownloadV2.bind(this)}
+                onClick={this.showPasswordBox.bind(this)}
                 style={{}}
               ></i>
             </div>
@@ -184,6 +147,19 @@ class SingleFileView extends React.Component {
                 onClick={this.handleRemove.bind(this)}
               ></i>
             </div>
+          </div>
+
+          {/* show password and download stuff */}
+          <div
+            className={
+              this.state.password_box ? "row share_box" : "row display_none"
+            }
+            style={{ paddingBottom: "5px", paddingTop: "5px" }}
+          >
+            <Download
+              file_id={this.state.file_id}
+              filename={this.state.filename}
+            />
           </div>
 
           {/* share email options, default visibility None, */}
