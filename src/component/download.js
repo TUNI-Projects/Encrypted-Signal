@@ -57,6 +57,10 @@ class Download extends React.Component {
           a.href = url;
           a.download = this.state.filename;
           a.click();
+          setTimeout(() => {
+            // wait 3 seconds to reload the page.
+            window.location.reload();
+          }, 3000);
         }
       })
       .catch((error) => {

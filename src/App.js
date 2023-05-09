@@ -70,7 +70,6 @@ class App extends React.Component {
               <div className="col-md-3"></div>
               <div className="col-md-6">
                 <footer className="footer" align="center">
-                  
                 </footer>
               </div>
               <div className="col-md-3"></div>
