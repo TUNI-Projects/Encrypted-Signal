@@ -28,6 +28,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -48,34 +49,36 @@
 
 
 .App {
-	background: linear-gradient(-45deg, #7A4085, #5E2B99, #F75EFF,
-   #CA38D1,#9400D1, #B394D6, #5D0085  );
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
+  background: linear-gradient(-45deg, #7A4085, #5E2B99, #F75EFF,
+      #CA38D1, #9400D1, #B394D6, #5D0085);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
 }
 
 .dashboard {
   background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
+  animation: gradient 15s ease infinite;
   min-height: 100vh;
-	height: 100%;
+  height: 100%;
   max-height: 100%;
   padding-bottom: 20px;
   padding-top: 20px;
-  background: linear-gradient(-45deg, #6f3aab,#850fb8  );
+  background: linear-gradient(-45deg, #6f3aab, #850fb8);
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 
@@ -147,7 +150,7 @@
   position: relative;
 }
 
-.upload_section_row { 
+.upload_section_row {
   position: relative;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -167,7 +170,7 @@
 }
 
 .file_details {
-  background-color:white;
+  background-color: white;
   width: 100%;
   border-radius: 15px;
   margin: 5px;
@@ -177,13 +180,13 @@
 
 @keyframes fadeInFromNone {
   0% {
-      display: none;
-      opacity: 0;
+    display: none;
+    opacity: 0;
   }
 
   1% {
-      display: block;
-      opacity: 0;
+    display: block;
+    opacity: 0;
   }
 
   50% {
@@ -192,8 +195,8 @@
   }
 
   100% {
-      display: block;
-      opacity: 1;
+    display: block;
+    opacity: 1;
   }
 }
 
@@ -215,7 +218,7 @@
   font-weight: bold;
   text-shadow: whitesmoke;
   font-size: large;
-  
+
 }
 
 .entry:hover {
@@ -265,4 +268,15 @@
 .display_none {
   display: none;
   animation: fadeInFromNone 2s ease-out;
+}
+
+
+.file_list_active {
+  background-color: #9400D1;
+  color: whitesmoke;
+}
+
+.file_list_passive {
+  background-color: grey;
+  color: whitesmoke;
 }

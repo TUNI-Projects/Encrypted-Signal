@@ -11,6 +11,7 @@ class SingleFileView extends React.Component {
     this.state = {
       file_id: this.props.item["file_id"],
       filename: this.props.item["original_filename"],
+      type: this.props.type,
       share_options: false,
       password_box: false,
       message: null,
@@ -77,7 +78,10 @@ class SingleFileView extends React.Component {
           });
         }
       );
-    window.location.reload();
+
+    if (this.state.success) {
+      window.location.reload();
+    }
   }
 
   showPasswordBox(event) {
@@ -91,6 +95,7 @@ class SingleFileView extends React.Component {
   render() {
     const item = this.props.item;
     const uploaded_at = new Date(item["uploaded_at"]).toLocaleString("en-GB");
+    const sharedAt = new Date(item["shared_at"]).toLocaleString("en-GB");
 
     return (
       <ul className="file_ul">
@@ -104,50 +109,87 @@ class SingleFileView extends React.Component {
                 className="h6"
                 style={{ width: "fit-content", paddingBottom: "5px" }}
               >
-                {" "}
-                Uploaded At:{" "}
-              </p>{" "}
+                Uploaded On:
+              </p>
               <small className="" style={{ width: "fit-content" }}>
-                {" "}
-                {uploaded_at}{" "}
+                {uploaded_at}
               </small>
             </span>
-            <span className="row" style={{ paddingBottom: "5px" }}>
-              <p className="h6"> Uploaded By:</p>
-              <small>{item.file_owner}</small>
-            </span>
+            {this.state.type === "shared" && (
+              <span className="row">
+                <p
+                  className="h6"
+                  style={{ width: "fit-content", paddingBottom: "5px" }}
+                >
+                  Shared On:
+                </p>
+                <small className="" style={{ width: "fit-content" }}>
+                  {sharedAt}
+                </small>
+              </span>
+            )}
+
+            {this.state.type === "own" && (
+              <span className="row" style={{ paddingBottom: "5px" }}>
+                <p className="h6"> Uploaded By:</p>
+                <small>{item.file_owner}</small>
+              </span>
+            )}
+
+            {this.state.type === "shared" && (
+              <span className="row" style={{ paddingBottom: "5px" }}>
+                <p className="h6"> Shared By:</p>
+                <small style={{ width: "fit-content" }}>{item.shared_by}</small>
+              </span>
+            )}
           </div>
 
-          <div
-            className="row"
-            style={{ paddingBottom: "5px", paddingTop: "5px" }}
-          >
-            {/* file download, share and delete options */}
-            <div className="col-md-4 img_center">
-              {/* download */}
-              <i
-                className="gg-software-download"
+          {this.state.type === "own" && (
+            <div
+              className="row"
+              style={{ paddingBottom: "5px", paddingTop: "5px" }}
+            >
+              {/* file download, share and delete options */}
+              <div
+                className="col-md-4 img_center"
                 onClick={this.showPasswordBox.bind(this)}
-                style={{}}
-              ></i>
-            </div>
+              >
+                {/* download */}
+                <i className="gg-software-download"></i>
+              </div>
 
-            <div className="col-md-4 img_center">
-              {/* share */}
-              <i
-                className="gg-share"
+              <div
+                className="col-md-4 img_center"
                 onClick={this.handleShareClick.bind(this)}
-              ></i>
-            </div>
+              >
+                {/* share */}
+                <i className="gg-share"></i>
+              </div>
 
-            <div className="col-md-4 img_center">
-              {/* delete */}
-              <i
-                className="gg-remove"
+              <div
+                className="col-md-4 img_center"
                 onClick={this.handleRemove.bind(this)}
-              ></i>
+              >
+                {/* delete */}
+                <i className="gg-remove"></i>
+              </div>
             </div>
-          </div>
+          )}
+
+          {this.state.type === "shared" && (
+            <div
+              className="row"
+              style={{ paddingBottom: "5px", paddingTop: "5px" }}
+            >
+              <button
+                className="btn btn-primary"
+                style={{ width: "100%" }}
+                onClick={this.showPasswordBox.bind(this)}
+              >
+                Decrypt & Download
+              </button>
+            </div>
+          )}
 
           {/* show password and download stuff */}
           <div
