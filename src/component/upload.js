@@ -7,6 +7,7 @@ class FileUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      maxSize: 10 * 1024 * 1024,
       file: null,
       isFileSelected: false,
       progress: 0,
@@ -30,13 +31,19 @@ class FileUpload extends React.Component {
 
   checkPassword(password) {
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
     return regex.test(password);
   }
 
   handleUploadClick(e) {
     // handle the upload option.
     e.preventDefault();
+    if (this.state.file["size"] > this.state.maxSize) {
+      this.setState({
+        error_message: "File size is too large. Maximum upload limit is 10 MB",
+      });
+      return;
+    }
     const upload_url = this.state.base_url + "/share/upload/";
 
     if (this.state.file == null) {
@@ -55,7 +62,7 @@ class FileUpload extends React.Component {
       if (!this.checkPassword(password)) {
         this.setState({
           error_message:
-            "Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+            "Your password must be between 8-32 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character between `@$!%*?&`.",
         });
         return;
       }
@@ -160,18 +167,29 @@ class FileUpload extends React.Component {
                     </div>
                   </div>
                 )}
-                <button className="btn btn-primary btn_upload" style={{width: "100%", marginTop: "10px", marginBottom: "5px"}} type="submit">
+                <button
+                  className="btn btn-primary btn_upload"
+                  style={{
+                    width: "100%",
+                    marginTop: "10px",
+                    marginBottom: "5px",
+                  }}
+                  type="submit"
+                >
                   Encrypt & Upload
                 </button>
               </form>
 
               <div className="upload_status">
                 {/* upload progress bar */}
-                <ProgressBar
-                  className="progress_bar"
-                  now={this.state.progress}
-                  label={`${this.state.progress}%`}
-                />
+                {this.state.file && (
+                  <ProgressBar
+                    className="progress_bar"
+                    now={this.state.progress}
+                    label={`${this.state.progress}%`}
+                  />
+                )}
+
                 {/* success message here */}
                 {this.state.success_message && (
                   <Alert
@@ -197,13 +215,24 @@ class FileUpload extends React.Component {
         </div>
 
         <div className="row" style={{ marginTop: 20 }}>
-          <hr />
           {this.state.file != null && (
             <div className="row file_details">
               <h4> File Details </h4>
-              <p className=""> File Name: {this.state.file["name"]}</p>
-              <p className=""> File Size: {this.state.file["size"]} bytes</p>
-              <p className=""> File Type: {this.state.file["type"]}</p>
+              <hr />
+              <p className="">
+                {" "}
+                <b>File Name: </b> {this.state.file["name"]}
+              </p>
+              <p className="">
+                {" "}
+                <b>File Size: </b>
+                {(this.state.file["size"] / (1024 * 1024)).toFixed(2)} MB
+              </p>
+              <p className="">
+                {" "}
+                <b>File Type: </b>
+                {this.state.file["type"]}
+              </p>
             </div>
           )}
         </div>
