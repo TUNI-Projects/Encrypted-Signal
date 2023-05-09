@@ -7,7 +7,6 @@ class Download extends React.Component {
     this.state = {
       filename: this.props.filename,
       file_id: this.props.file_id,
-      success_msg: null,
       failure_msg: null,
       password: "",
       // base_url: "https://1234.ibtehaz.xyz",
@@ -39,32 +38,33 @@ class Download extends React.Component {
       }),
     };
     fetch(download_url, requestOptions)
-    .then((response) => {
+      .then((response) => {
         if (response.status !== 200) {
-            return Promise.all([response.json(), response.status]);
+          return Promise.all([response.json(), response.status]);
         } else {
-            return Promise.all([response.blob(), response.status]);
+          return Promise.all([response.blob(), response.status]);
         }
-    })
-    .then(([blob, status]) => {
-      if (blob["type"] === "application/json") {
-        //do something here
-        throw new Error("File not found!");
-      }
-      let url = window.URL.createObjectURL(blob);
-      let a = document.createElement("a");
-      console.log(url);
-      a.href = url;
-      a.download = this.state.filename;
-      a.click();
-    })
-    .catch((error) => {
-      console.log(error);
-      this.setState({
-        "success": false,
-        message: "File not found",
       })
-    });
+      .then(([blob, status]) => {
+        if (status !== 200) {
+          this.setState({
+            success: false,
+            failure_msg: blob.message,
+          });
+        } else {
+          let url = window.URL.createObjectURL(blob);
+          let a = document.createElement("a");
+          a.href = url;
+          a.download = this.state.filename;
+          a.click();
+        }
+      })
+      .catch((error) => {
+        this.setState({
+          success: false,
+          failure_msg: error.message,
+        });
+      });
   }
 
   render() {
@@ -72,7 +72,7 @@ class Download extends React.Component {
       <div className="row">
         <form
           className="form-row align-items-center"
-            onSubmit={this.handleDownload.bind(this)}
+          onSubmit={this.handleDownload.bind(this)}
         >
           <div className="col-auto">
             <input
@@ -96,13 +96,6 @@ class Download extends React.Component {
             </button>
           </div>
         </form>
-
-        {/* success message here */}
-        {this.state.success_msg && (
-          <Alert className="alert alert-success alert-space h6" align="center">
-            {this.state.success_msg}
-          </Alert>
-        )}
 
         {/* error message here */}
         {this.state.failure_msg && (
