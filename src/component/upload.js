@@ -2,7 +2,6 @@ import "./../css/App.css";
 import React from "react";
 import axios from "axios";
 import { Alert, ProgressBar } from "react-bootstrap";
-import CryptoJS from "crypto-js";
 
 class FileUpload extends React.Component {
   constructor(props) {
@@ -29,6 +28,12 @@ class FileUpload extends React.Component {
     });
   }
 
+  checkPassword(password) {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+
   handleUploadClick(e) {
     // handle the upload option.
     e.preventDefault();
@@ -45,61 +50,63 @@ class FileUpload extends React.Component {
     // file ENCRYPT
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      const fileContents = fileReader.result;
-      const encryptedContents = CryptoJS.AES.encrypt(
-        fileContents,
-        "super-secret-encryption-key",
-      ).toString();
+      // const fileContents = fileReader.result;
+      const password = e.target.encryption_password.value;
+      if (!this.checkPassword(password)) {
+        this.setState({
+          error_message:
+            "Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+        });
+        return;
+      }
+      const formData = new FormData();
+      formData.append("file", this.state.file);
+      formData.append("filename", this.state.file["name"]);
+      formData.append("file_type", this.state.file["type"]);
+      formData.append("password", password);
 
-    const formData = new FormData();
-    // formData.append("file", this.state.file);
-    formData.append("encrypted_data", encryptedContents);
-    formData.append("filename", this.state.file["name"]);
-    formData.append("file_type", this.state.file["type"]);
+      if (shared_email !== "") {
+        formData.append("shared_email", shared_email);
+      }
 
-    if (shared_email !== "") {
-      formData.append("shared_email", shared_email);
-    }
-    console.log(encryptedContents);
-
-    axios
-      .post(upload_url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: (data) => {
-          //Set the progress value to show the progress bar
-          this.setState({
-            progress: Math.round((100 * data.loaded) / data.total),
-          });
-        },
-        withCredentials: true, // Include credentials with the request
-      })
-      .then(
-        (result) => {
-          console.log(result["data"]);
-          console.log(result.status);
-          if (result.status === 201) {
+      axios
+        .post(upload_url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+          },
+          onUploadProgress: (data) => {
+            //Set the progress value to show the progress bar
             this.setState({
-              file: null,
-              isFileSelected: false,
-              progress: 100,
-              success_message: result["data"]["message"],
+              progress: Math.round((100 * data.loaded) / data.total),
             });
-          } else {
+          },
+          withCredentials: true, // Include credentials with the request
+        })
+        .then(
+          (result) => {
+            if (result.status === 201) {
+              this.setState({
+                file: null,
+                isFileSelected: false,
+                progress: 100,
+                success_message: result["data"]["message"],
+              });
+            } else {
+              this.setState({
+                progress: 0,
+                error_message: result["message"],
+              });
+            }
+          },
+          (error) => {
             this.setState({
-              error_message: result["data"]["message"],
+              progress: 0,
+              error_message: error.message,
             });
           }
-        },
-        (error) => {
-          this.setState({
-            error_message: error,
-          });
-        }
-      );
+        );
     };
-    
     fileReader.readAsText(this.state.file);
     // e.target.files = null;
   }
@@ -123,18 +130,34 @@ class FileUpload extends React.Component {
                 />
 
                 {this.state.file && (
-                  <div className="form-group upload_share_email">
-                    <input
-                      type="email"
-                      name="share_email_address"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      placeholder="Enter Email"
-                    />
-                    <small id="emailHelp" className="form-text text-muted">
-                      Optional: Share this file with someone!
-                    </small>
+                  <div>
+                    <div className="form-group upload_share_email">
+                      <input
+                        type="password"
+                        name="encryption_password"
+                        className="form-control"
+                        id="inputPassword1"
+                        aria-describedby="PasswordHelp"
+                        placeholder="Enter Encryption Password"
+                        required
+                      />
+                      <small id="emailHelp" className="form-text text-muted">
+                        Required: Type in encryption password!
+                      </small>
+                    </div>
+                    <div className="form-group upload_share_email">
+                      <input
+                        type="email"
+                        name="share_email_address"
+                        className="form-control"
+                        id="exampleInputEmail1"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter Email"
+                      />
+                      <small id="emailHelp" className="form-text text-muted">
+                        Optional: Share this file with someone!
+                      </small>
+                    </div>
                   </div>
                 )}
                 <button className="btn btn-primary btn_upload" type="submit">

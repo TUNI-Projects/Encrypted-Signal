@@ -55,8 +55,7 @@ class Login extends React.Component {
               success_message: result["message"],
             });
             this.setCookie();
-            // TODO: -> what to do with this URL? How to set it dynamically?
-            // window.location.replace("http://localhost:3000/Encrypted-Signal");
+            window.location.reload();
           } else {
             // show error message here!
             this.setState({
@@ -72,7 +71,7 @@ class Login extends React.Component {
           console.log(error);
           this.setState({
             username: null,
-            error_message: error,
+            error_message: error.message,
           });
         }
       );

@@ -43,7 +43,6 @@ class Register extends React.Component {
               success: true,
               message: result["message"],
             })
-            window.location.reload();
           } else {
             // show error message here!
             this.setState({
@@ -59,7 +58,7 @@ class Register extends React.Component {
           console.log(error);
           this.setState({
             success: false,
-            message: error,
+            message: error.message,
           })
         }
       );

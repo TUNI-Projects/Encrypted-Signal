@@ -99,10 +99,11 @@ class SingleFileView extends React.Component {
       .then(([response, status]) => {
         const filename = response.filename;
         if (status === 200) {
-          // const content = atob(response.content);
+          const content = atob(response.content);
+          // const content = atob(response.content.split(',')[1]);
           const fileType = response.file_type;
           const key = "super-secret-encryption-key";
-          const decryptedContents = CryptoJS.AES.decrypt(response.content, key).toString(
+          const decryptedContents = CryptoJS.AES.decrypt(content, key).toString(
             CryptoJS.enc.Utf8
           );
           // Create a Blob object from the decrypted file contents
@@ -145,12 +146,12 @@ class SingleFileView extends React.Component {
                 {uploaded_at}{" "}
               </small>
             </span>
-            <span className="row">
-              <p className="h6" style={{ width: "fit-content" }}>
+            <span className="row" style={{paddingBottom: "5px"}}>
+              <p className="h6">
                 {" "}
-                Uploaded By:{" "}
+                Uploaded By:
               </p>
-              <small style={{ width: "fit-content" }}>Add email here</small>
+              <small>{item.file_owner}</small>
             </span>
           </div>
 
