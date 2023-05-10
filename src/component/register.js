@@ -6,7 +6,8 @@ class Register extends React.Component {
     super(props);
     this.state = {
       username: null,
-      base_url: "https://1234.ibtehaz.xyz",
+      // base_url: "https://1234.ibtehaz.xyz",
+      base_url: "http://127.0.0.1:8000",
       message: null,
       success: false,
     };
@@ -62,6 +63,9 @@ class Register extends React.Component {
           })
         }
       );
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   render() {
@@ -102,15 +106,18 @@ class Register extends React.Component {
 
         {/* message and status */}
         {this.state.message && (
-            <div className="row">
-              <Alert
-                className={this.state.success ? "alert alert-success alert-space h6": "alert alert-danger alert-space h6"}
-                align="center"
-              >
-                {this.state.message}
-              </Alert>
-            </div>
-          )}
+          <div className="row">
+            <Alert
+              className={this.state.success ? "alert alert-danger alert-space h6" : "alert alert-success alert-space h6"}
+              align="center"
+            >
+              {this.state.message}
+              {this.state.success && (
+                <small>Now you can login with your email!</small>
+              )}
+            </Alert>
+          </div>
+        )}
       </div>
     );
   }
