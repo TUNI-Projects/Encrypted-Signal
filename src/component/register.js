@@ -13,11 +13,27 @@ class Register extends React.Component {
     };
   }
 
+  checkPassword(password) {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
+    return regex.test(password);
+  }
+
   handleLogin(e) {
     e.preventDefault();
     let status = null;
     let email_address = e.target.email_address.value;
     let password = e.target.password.value;
+
+    if (!this.checkPassword(password)) {
+      this.setState({
+        success: false,
+        message:
+          "Your password must be between 8-32 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character between `@$!%*?&`.",
+      });
+      return;
+    }
+
     const register_url = this.state.base_url + "/user/register/";
 
     const requestOptions = {
@@ -33,7 +49,7 @@ class Register extends React.Component {
     fetch(register_url, requestOptions)
       .then((res) => {
         status = res.status;
-        return res.json()
+        return res.json();
       })
       .then(
         (result) => {
@@ -43,13 +59,13 @@ class Register extends React.Component {
               username: result["username"],
               success: true,
               message: result["message"],
-            })
+            });
           } else {
             // show error message here!
             this.setState({
               success: false,
               message: result["message"],
-            })
+            });
           }
         },
         // Note: it's important to handle errors here
@@ -60,7 +76,7 @@ class Register extends React.Component {
           this.setState({
             success: false,
             message: error.message,
-          })
+          });
         }
       );
     setTimeout(() => {
@@ -108,7 +124,11 @@ class Register extends React.Component {
         {this.state.message && (
           <div className="row">
             <Alert
-              className={this.state.success ? "alert alert-danger alert-space h6" : "alert alert-success alert-space h6"}
+              className={
+                this.state.success
+                  ? "alert alert-danger alert-space h6"
+                  : "alert alert-success alert-space h6"
+              }
               align="center"
             >
               {this.state.message}
