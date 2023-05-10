@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
+import { validatePassword } from "../utility/util";
 
 class Register extends React.Component {
   constructor(props) {
@@ -13,23 +14,18 @@ class Register extends React.Component {
     };
   }
 
-  checkPassword(password) {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
-    return regex.test(password);
-  }
-
   handleLogin(e) {
     e.preventDefault();
     let status = null;
     let email_address = e.target.email_address.value;
     let password = e.target.password.value;
 
-    if (!this.checkPassword(password)) {
+    const passwrodValidityMessage = validatePassword(password);
+
+    if (passwrodValidityMessage !== "Valid password!") {
       this.setState({
         success: false,
-        message:
-          "Your password must be between 8-32 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character between `@$!%*?&`.",
+        message: passwrodValidityMessage,
       });
       return;
     }

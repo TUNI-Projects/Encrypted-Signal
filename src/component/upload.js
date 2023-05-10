@@ -2,6 +2,7 @@ import "./../css/App.css";
 import React from "react";
 import axios from "axios";
 import { Alert, ProgressBar } from "react-bootstrap";
+import { validatePassword } from "../utility/util";
 
 class FileUpload extends React.Component {
   constructor(props) {
@@ -29,12 +30,6 @@ class FileUpload extends React.Component {
     });
   }
 
-  checkPassword(password) {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
-    return regex.test(password);
-  }
-
   handleUploadClick(e) {
     // handle the upload option.
     e.preventDefault();
@@ -59,13 +54,16 @@ class FileUpload extends React.Component {
     fileReader.onload = () => {
       // const fileContents = fileReader.result;
       const password = e.target.encryption_password.value;
-      if (!this.checkPassword(password)) {
+
+      const passwrodValidityMessage = validatePassword(password);
+
+      if (passwrodValidityMessage !== "Valid password!") {
         this.setState({
-          error_message:
-            "Your password must be between 8-32 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character between `@$!%*?&`.",
+          error_message: passwrodValidityMessage,
         });
         return;
       }
+
       const formData = new FormData();
       formData.append("file", this.state.file);
       formData.append("filename", this.state.file["name"]);
