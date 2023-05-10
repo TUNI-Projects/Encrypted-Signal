@@ -7,7 +7,28 @@ class NavBar extends React.Component {
 
   logout(event) {
     event.preventDefault();
+    const logout_url = "http://127.0.0.1:8000/user/logout/";
+    const requestOptions = {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    fetch(logout_url, requestOptions)
+      .then((response) => {
+        return Promise.all([response.json(), response.status]);
+      })
+      .then(([res, status]) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     Cookies.remove('username', {path: '/'});
+    Cookies.remove('sessionId', {path: '/'});
     window.location.reload();
   }
 
