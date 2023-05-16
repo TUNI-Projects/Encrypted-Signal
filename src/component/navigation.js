@@ -7,7 +7,7 @@ class NavBar extends React.Component {
 
   logout(event) {
     event.preventDefault();
-    const logout_url = "http://127.0.0.1:8000/user/logout/";
+    const logout_url = "https://1234.ibtehaz.xyz/user/logout/";
     const requestOptions = {
       method: "POST",
       credentials: "include",

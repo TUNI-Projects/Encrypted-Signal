@@ -9,8 +9,7 @@ class Login extends React.Component {
       username: null,
       error_message: null,
       success_message: null,
-      // base_url: "https://1234.ibtehaz.xyz",
-      base_url: " http://127.0.0.1:8000",
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 
