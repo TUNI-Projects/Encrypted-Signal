@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Encrypted-Signal/static/css/main.1f4fb578.css",
-    "main.js": "/Encrypted-Signal/static/js/main.e2fec5df.js",
+    "main.css": "/Encrypted-Signal/static/css/main.d5d3b719.css",
+    "main.js": "/Encrypted-Signal/static/js/main.d4a7ee33.js",
     "static/js/787.1b4d6453.chunk.js": "/Encrypted-Signal/static/js/787.1b4d6453.chunk.js",
     "index.html": "/Encrypted-Signal/index.html",
-    "main.1f4fb578.css.map": "/Encrypted-Signal/static/css/main.1f4fb578.css.map",
-    "main.e2fec5df.js.map": "/Encrypted-Signal/static/js/main.e2fec5df.js.map",
+    "main.d5d3b719.css.map": "/Encrypted-Signal/static/css/main.d5d3b719.css.map",
+    "main.d4a7ee33.js.map": "/Encrypted-Signal/static/js/main.d4a7ee33.js.map",
     "787.1b4d6453.chunk.js.map": "/Encrypted-Signal/static/js/787.1b4d6453.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1f4fb578.css",
-    "static/js/main.e2fec5df.js"
+    "static/css/main.d5d3b719.css",
+    "static/js/main.d4a7ee33.js"
   ]
 }
