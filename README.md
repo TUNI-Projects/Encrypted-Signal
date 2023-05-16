@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Encrypted Signal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FrontEnd Implementation for Secure Programming Project - Encrypted Signal - An Encrypted File Sharing Platform! Users can upload a file, share that file with another registered user. This application follows Secure Programming and covers some of the OWASP Top 10 Web Application Security Risks. A detailed project report can be found here: [Encrypted Signal - Secure Programming Report](https://github.com/TUNI-Projects/Encrypted-Signal-Backend/blob/master/report/Encrypted%20Signal%20-%20Secure%20Programming%20Report.pdf).
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+* User Registration, Login, Logout
+* User File Upload, Download, Share and Delete
 
-### `npm start`
+Only owner can share file with other users as well as delete the file.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## OWASP Top 10 Checklist
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Broken Access Control
+2. Cryptographic Failures
+3. Injection
+4. Security Logging and Monitoring Failures
+5. Identification and Authentication Failures
+6. Security Misconfiguration
+7. Server-Side Request Forgery (SSRF)
 
-### `npm test`
+I am confident that I have managed to cross these checklist on this project. However, they are in extremely primal level. They require a lot of fine tuning, in different layers, not only on application layer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Deployment
 
-### `npm run build`
+The Project is visible in a limited capacity on this website (https://tuni-projects.github.io/Encrypted-Signal/).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Limitations are -
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* User Session is valid for 1 minute.
+* File Upload Limit is 1 KB.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Localhost implementation won't have this limitation.
 
-### `npm run eject`
+### How to Deploy
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* `npm install` to install all the node dependencies.
+* `npm start` to run the app in the development mode in localhost.
+* `npm run deploy` to deploy the app in the github pages.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Thank you
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ibtehaz, May 16, 2023
