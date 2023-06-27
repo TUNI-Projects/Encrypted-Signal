@@ -9,8 +9,7 @@ class Download extends React.Component {
       file_id: this.props.file_id,
       failure_msg: null,
       password: "",
-      // base_url: "https://1234.ibtehaz.xyz",
-      base_url: "http://127.0.0.1:8000",
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 

@@ -8,9 +8,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.5",
+    "child_process": "^1.0.2",
     "crypto-js": "^4.1.1",
     "dropzone": "^6.0.0-beta.2",
     "file-saver": "^2.0.5",
+    "fs": "^0.0.1-security",
     "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
@@ -20,11 +22,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "node updateVersion.js && npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "node updateVersion.js && react-scripts start",
+    "build": "node updateVersion.js && react-scripts build",
+    "test": "node updateVersion.js && react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

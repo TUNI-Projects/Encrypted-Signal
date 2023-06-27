@@ -16,8 +16,7 @@ class SingleFileView extends React.Component {
       password_box: false,
       message: null,
       success: false,
-      // base_url: "https://1234.ibtehaz.xyz",
-      base_url: "http://127.0.0.1:8000",
+      base_url: "https://1234.ibtehaz.xyz",
     };
   }
 
