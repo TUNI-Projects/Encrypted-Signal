@@ -1,3 +1,17 @@
+body {
+  height: 100%;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -59,9 +73,6 @@
 .dashboard {
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-  min-height: 100vh;
-  height: 100%;
-  max-height: 100%;
   padding-bottom: 20px;
   padding-top: 20px;
   background: linear-gradient(-45deg, #6f3aab, #850fb8);
@@ -279,4 +290,8 @@
 .file_list_passive {
   background-color: grey;
   color: whitesmoke;
+}
+
+.footer {
+  background: linear-gradient(-45deg, #6f3aab, #850fb8);
 }

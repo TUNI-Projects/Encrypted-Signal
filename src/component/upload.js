@@ -8,7 +8,7 @@ class FileUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxSize: 1 * 1024,
+      maxSize: 100 * 1024,
       file: null,
       isFileSelected: false,
       progress: 0,
@@ -35,7 +35,7 @@ class FileUpload extends React.Component {
     e.preventDefault();
     if (this.state.file["size"] > this.state.maxSize) {
       this.setState({
-        error_message: "File size is too large. Maximum upload limit is 1 KB",
+        error_message: "File size is too large. Maximum upload limit is 100 KB",
       });
       return;
     }
