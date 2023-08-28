@@ -39,6 +39,7 @@ body {
 }
 
 @keyframes gradient {
+
   /* main gradient. */
   0% {
     background-position: 0% 50%;
@@ -255,4 +256,26 @@ body {
 
 .footer {
   background: linear-gradient(-45deg, #6f3aab, #850fb8);
+}
+
+.logo-github {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.btn_github {
+  background-color: #9400D1;
+  color: whitesmoke;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.btn_github:hover {
+  background-color: whitesmoke;
+  color: #9400D1;
+  font-weight: bold;
+  border-radius: 10px;
+  border-color: #9400D1;
 }

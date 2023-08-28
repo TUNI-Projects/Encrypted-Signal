@@ -14,10 +14,19 @@ class Login extends React.Component {
   }
 
   setCookie() {
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 15 * 60 * 1000); // 15 minutes in milliseconds
+
     Cookies.set("username", this.state.username, {
       path: "/",
       sameSite: "strict",
-      maxAge: "10000",
+      expires: expirationDate,
+    });
+
+    Cookies.set("sessionTime", this.state.username, {
+      path: "/",
+      sameSite: "strict",
+      expires: expirationDate,
     });
   }
 

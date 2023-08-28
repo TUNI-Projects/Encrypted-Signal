@@ -1,6 +1,7 @@
 import "./../css/App.css";
 import React from "react";
 import Cookies from "js-cookie";
+import logo_github from "../img/logo_github.png";
 
 class NavBar extends React.Component {
 
@@ -27,8 +28,8 @@ class NavBar extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-    Cookies.remove('username', {path: '/'});
-    Cookies.remove('sessionId', {path: '/'});
+    Cookies.remove('username', { path: '/' });
+    Cookies.remove('sessionId', { path: '/' });
     window.location.reload();
   }
 
@@ -49,6 +50,7 @@ class NavBar extends React.Component {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
@@ -63,6 +65,12 @@ class NavBar extends React.Component {
             </li>
           </ul>
         </div>
+
+        <button className="btn btn_github">
+          <img src={logo_github} alt="Logo" className="logo-github" />
+          Find me on Github
+        </button>
+
       </nav>
     );
   }
