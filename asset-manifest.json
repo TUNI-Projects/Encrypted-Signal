@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/Encrypted-Signal/static/css/main.8dc38f0d.css",
-    "main.js": "/Encrypted-Signal/static/js/main.1b15a391.js",
+    "main.css": "/Encrypted-Signal/static/css/main.3e5e94fa.css",
+    "main.js": "/Encrypted-Signal/static/js/main.7b1406c4.js",
     "static/js/787.1b4d6453.chunk.js": "/Encrypted-Signal/static/js/787.1b4d6453.chunk.js",
+    "static/media/logo_github.png": "/Encrypted-Signal/static/media/logo_github.c0539a231673f070a327.png",
     "index.html": "/Encrypted-Signal/index.html",
-    "main.8dc38f0d.css.map": "/Encrypted-Signal/static/css/main.8dc38f0d.css.map",
-    "main.1b15a391.js.map": "/Encrypted-Signal/static/js/main.1b15a391.js.map",
+    "main.3e5e94fa.css.map": "/Encrypted-Signal/static/css/main.3e5e94fa.css.map",
+    "main.7b1406c4.js.map": "/Encrypted-Signal/static/js/main.7b1406c4.js.map",
     "787.1b4d6453.chunk.js.map": "/Encrypted-Signal/static/js/787.1b4d6453.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8dc38f0d.css",
-    "static/js/main.1b15a391.js"
+    "static/css/main.3e5e94fa.css",
+    "static/js/main.7b1406c4.js"
   ]
 }
