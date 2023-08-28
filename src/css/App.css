@@ -1,37 +1,19 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.parent-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.main-content {
+  flex: 1;
+  background: linear-gradient(-45deg, #7A4085, #5E2B99, #F75EFF,
+      #CA38D1, #9400D1, #B394D6, #5D0085);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
 .auth {
@@ -48,26 +30,17 @@
 }
 
 
-.App {
-  background: linear-gradient(-45deg, #7A4085, #5E2B99, #F75EFF,
-      #CA38D1, #9400D1, #B394D6, #5D0085);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  height: 100vh;
-}
-
 .dashboard {
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-  min-height: 100vh;
-  height: 100%;
-  max-height: 100%;
   padding-bottom: 20px;
   padding-top: 20px;
   background: linear-gradient(-45deg, #6f3aab, #850fb8);
 }
 
 @keyframes gradient {
+
+  /* main gradient. */
   0% {
     background-position: 0% 50%;
   }
@@ -279,4 +252,30 @@
 .file_list_passive {
   background-color: grey;
   color: whitesmoke;
+}
+
+.footer {
+  background: linear-gradient(-45deg, #6f3aab, #850fb8);
+}
+
+.logo-github {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.btn_github {
+  background-color: #9400D1;
+  color: whitesmoke;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.btn_github:hover {
+  background-color: whitesmoke;
+  color: #9400D1;
+  font-weight: bold;
+  border-radius: 10px;
+  border-color: #9400D1;
 }
